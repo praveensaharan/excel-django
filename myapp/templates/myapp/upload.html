@@ -1,0 +1,25 @@
+<!-- myapp/templates/myapp/summary.html -->
+<!-- templates/myapp/upload.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload Excel File</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Upload Excel File</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="file">Choose Excel File:</label>
+          <input type="file" name="file" id="file" class="form-control-file" />
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+    </div>
+  </body>
+</html>

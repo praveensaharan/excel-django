@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Summary</title>
+  </head>
+  <body>
+    <a href="{% url 'upload_file' %}" class="btn btn-primary">Upload New CSV</a>
+    <h1>Summary of Uploaded Data</h1>
+
+    <h2>Count of Records by State</h2>
+    <table border="1">
+      <tr>
+        <th>State</th>
+        <th>Count</th>
+      </tr>
+      {% for row in state_counts %}
+      <tr>
+        <td>{{ row.Cust_State }}</td>
+        <td>{{ row.count }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>Count of Records by Top 10 Pin Codes</h2>
+    <table border="1">
+      <tr>
+        <th>Pin Code</th>
+        <th>Count</th>
+      </tr>
+      {% for row in top_pins %}
+      <tr>
+        <td>{{ row.Cust_Pin }}</td>
+        <td>{{ row.count }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>DPD Summary Statistics</h2>
+    <table border="1">
+      <tr>
+        <th>Statistic</th>
+        <th>Value</th>
+      </tr>
+      {% for row in dpd_summary %}
+      <tr>
+        <td>{{ row.index }}</td>
+        <td>{{ row.DPD }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>DPD Summary Statistics by State</h2>
+    <table border="1">
+      <tr>
+        <th>State</th>
+        <th>Count</th>
+        <th>Mean</th>
+        <th>Std</th>
+        <th>Min</th>
+        <th>25%</th>
+        <th>50%</th>
+        <th>75%</th>
+        <th>Max</th>
+      </tr>
+      {% for row in dpd_by_state %}
+      <tr>
+        <td>{{ row.Cust_State }}</td>
+        <td>{{ row.count }}</td>
+        <td>{{ row.mean }}</td>
+        <td>{{ row.std }}</td>
+        <td>{{ row.min }}</td>
+        <td>{{ row.twenty_five_percent }}</td>
+        <td>{{ row.fifty_percent }}</td>
+        <td>{{ row.seventy_five_percent }}</td>
+        <td>{{ row.max }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>DPD Summary Statistics by Date</h2>
+    <table border="1">
+      <tr>
+        <th>Date</th>
+        <th>Count</th>
+        <th>Mean</th>
+        <th>Std</th>
+        <th>Min</th>
+        <th>25%</th>
+        <th>50%</th>
+        <th>75%</th>
+        <th>Max</th>
+      </tr>
+      {% for row in date_summary %}
+      <tr>
+        <td>{{ row.Date }}</td>
+        <td>{{ row.count }}</td>
+        <td>{{ row.mean }}</td>
+        <td>{{ row.std }}</td>
+        <td>{{ row.min }}</td>
+        <td>{{ row.twenty_five_percent }}</td>
+        <td>{{ row.fifty_percent }}</td>
+        <td>{{ row.seventy_five_percent }}</td>
+        <td>{{ row.max }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>Count of Records by State and Date</h2>
+    {% load dict_filter %}
+
+    <h2>Count of Records by State and Date</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>State</th>
+          {% for item in state_date_counts %}
+          <th>{{ item.Date }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for key in state_date_counts.0.keys %} {% if key != 'Date' %}
+        <tr>
+          <td>{{ key }}</td>
+          {% for item in state_date_counts %}
+          <td>{{ item|get_item:key }}</td>
+          {% endfor %}
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
